@@ -11,7 +11,7 @@
 
 Name:		xmind
 Version:	8
-Release:	1%{?dist}
+Release:	0%{?dist}
 Summary:	Free Voice and Text Chat for Gamers.
 
 Group:		Applications/Office
