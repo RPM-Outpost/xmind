@@ -38,6 +38,9 @@ mv "%{downloaded_dir}"/* "%{buildroot}%{install_dir}"
 cp "%{desktop_file}" "%{buildroot}%{apps_dir}"
 chmod +x "%{buildroot}%{install_dir}"/start-xmind.sh
 
+%post
+update-desktop-database
+
 %files
 %{install_dir}
 %{apps_dir}/*
