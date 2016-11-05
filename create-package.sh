@@ -104,7 +104,7 @@ echo "Executable: $executable"
 echo 'Creating .desktop file...'
 cp "$icon_file" "$downloaded_dir"
 cp "$desktop_model" "$desktop_file"
-sed "s/_dir/$executable_dir/" "$startsh_model" > "$startsh_file"
+sed "s/@dir/$executable_dir/g" "$startsh_model" > "$startsh_file"
 
 # Fixes XMind.ini:
 echo 'Fixing XMind.ini...'
