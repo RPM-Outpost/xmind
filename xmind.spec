@@ -38,5 +38,5 @@ mv "%{downloaded_dir}"/* "%{buildroot}%{install_dir}"
 cp "%{desktop_file}" "%{buildroot}%{apps_dir}"
 
 %files
-/*
-
+%{install_dir}
+%{apps_dir}/*
