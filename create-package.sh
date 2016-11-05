@@ -4,12 +4,14 @@
 
 rpm_dir=$PWD/RPMs
 desktop_model=$PWD/xmind.desktop
+startsh_model=$PWD/start-xmind.sh
 spec_file=$PWD/xmind.spec
 icon_file=$PWD/xmind-logo.png
 
 work_dir=$PWD/work
 downloaded_dir=$work_dir/xmind
 desktop_file=$work_dir/xmind.desktop
+startsh_file=$downloaded_dir/start-xmind.sh
 
 # Checks that rpmbuild is installed
 if ! type 'rpmbuild' > /dev/null
@@ -101,7 +103,8 @@ echo "Executable: $executable"
 # Creates a .desktop file:
 echo 'Creating .desktop file...'
 cp "$icon_file" "$downloaded_dir"
-sed "s/_dir/$executable_dir/" "$desktop_model" > "$desktop_file"
+cp "$desktop_model" "$desktop_file"
+sed "s/_dir/$executable_dir/" "$startsh_model" > "$startsh_file"
 
 # Fixes XMind.ini:
 echo 'Fixing XMind.ini...'

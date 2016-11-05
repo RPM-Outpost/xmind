@@ -36,6 +36,7 @@ mkdir -p "%{buildroot}%{install_dir}"
 mkdir -p "%{buildroot}%{apps_dir}"
 mv "%{downloaded_dir}"/* "%{buildroot}%{install_dir}"
 cp "%{desktop_file}" "%{buildroot}%{apps_dir}"
+chmod +x "%{buildroot}%{install_dir}"/start-xmind.sh
 
 %files
 %{install_dir}
