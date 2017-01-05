@@ -10,7 +10,7 @@
 %define __jar_repack 0
 
 Name:		xmind
-Version:	8
+Version:	8.1
 Release:	0%{?dist}
 Summary:	Free Voice and Text Chat for Gamers.
 
