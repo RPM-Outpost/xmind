@@ -121,7 +121,8 @@ sed -i "s|./configuration|$user_xmind_config|; s|../workspace|$user_xmind_worksp
 
 # Chooses the spec file based on the system's architecture and build the packages
 echo 'Creating the RPM package...'
-rpmbuild -bb --nocheck "$spec_file" --define "_topdir $work_dir" --define "_rpmdir $rpm_dir" --define "arch $arch" --define "downloaded_dir $downloaded_dir" --define "desktop_file $desktop_file"
+rpmbuild -bb --quiet --nocheck "$spec_file" --define "_topdir $work_dir" --define "_rpmdir $rpm_dir"\
+	--define "arch $arch" --define "downloaded_dir $downloaded_dir" --define "desktop_file $desktop_file"
 
 echo '-----------'
 echo 'Done!'
