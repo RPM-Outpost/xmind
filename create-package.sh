@@ -99,14 +99,22 @@ unzip -q "$archive_name" -d "$downloaded_dir"
 
 
 echo 'Analysing the files...'
+dir64='XMind_amd64'
+dir32='XMind_i386'
 arch="$(uname -m)"
 if [ "$arch" = "x86_64" ]; then
-	executable="$downloaded_dir/XMind_amd64/XMind"
-	executable_dir="XMind_amd64"
-else
-	executable="$downloaded_dir/XMind_i386/XMind"
-	executable_dir="XMind_i386"
+	executable="$downloaded_dir/$dir64/XMind"
+	executable_dir="$dir64"
+	rm -r "$downloaded_dir/$dir32" # Removes the other architecture.
+elif [ "$arch" = "i386" ] || [ "$arch" = "i686" ]; then
+	executable="$downloaded_dir/$dir32/XMind"
+	executable_dir="$dir32"
+	rm -r "$downloaded_dir/$dir64" # Removes the other architecture.
 	arch="i386"
+else
+	echo '------------------------- ERROR -------------------------'
+	echo "Your architecture ($arch) is not supported by XMind. Sorry :("
+	exit 2
 fi
 echo "    Archive: $archive_name"
 echo "    Architecture: $arch"
