@@ -55,6 +55,7 @@ ask_remove_dir() {
 		*)
 			echo "Ok, I won't remove it."
 	esac
+	echo
 }
 
 # If the specified directory exists, asks the user if they want to remove it.
@@ -73,7 +74,7 @@ cd "$work_dir"
 
 # Downloads xmind if needed.
 if [ -e "$archive_name" ]; then
-	echo "Found $archive_name"
+	echo "Found the archive \"$archive_name\"."
 	read -n 1 -p 'Do you want to use this archive instead of downloading a new one? [y/N]' answer
 	echo
 	case "$answer" in
@@ -89,6 +90,7 @@ else
 fi
 
 
+echo
 echo 'Extracting the files...'
 if [ ! -d "$downloaded_dir" ]; then
 	mkdir "$downloaded_dir"
@@ -106,9 +108,9 @@ else
 	executable_dir="XMind_i386"
 	arch="i386"
 fi
-echo "Archive: $archive_name"
-echo "Architecture: $arch"
-echo "Executable: $executable"
+echo "    Archive: $archive_name"
+echo "    Architecture: $arch"
+echo "    Executable: $executable"
 
 
 echo 'Creating .desktop file...'
@@ -125,11 +127,12 @@ user_xmind_workspace="@user.home/.config/xmind/workspace"
 sed -i "s|./configuration|$user_xmind_config|; s|../workspace|$user_xmind_workspace|" "$ini_file"
 
 
+echo 'Creating the RPM package (this may take a while)...'
 rpmbuild -bb --quiet --nocheck "$spec_file" --define "_topdir $work_dir" --define "_rpmdir $rpm_dir"\
 	--define "arch $arch" --define "downloaded_dir $downloaded_dir" --define "desktop_file $desktop_file"\
 	--define "mime_icon $icon64_file" --define "mime_spec $mime_spec"
 
-echo '-----------'
-echo 'Done!'
+echo
+echo '------------------------- Done! -------------------------'
 echo "The RPM package is located in the \"RPMs/$arch\" folder."
 ask_remove_dir "$work_dir"
