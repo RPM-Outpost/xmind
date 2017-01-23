@@ -20,6 +20,22 @@ desktop_file="$work_dir/xmind.desktop"
 startsh_file="$downloaded_dir/start-xmind.sh"
 archive_file="$work_dir/$archive_name"
 
+# It's a bad idea to run rpmbuild as root!
+if [ "$(id -u)" = "0" ]; then
+	echo '------------------------ WARNING ------------------------'
+	echo 'This script should NOT be executed with root privileges!'
+	echo 'Building rpm packages as root is dangerous and may harm the system!'
+	echo 'Actually, badly written RPM spec files may execute dangerous command in the system directories.'
+	echo 'So it is REALLY safer not to run this script as root.'
+	echo 'If you still want to run this script as root, type "do it!" within 5 seconds (type anything else to exit):'
+	read -t 5 -n 6 -p 'Do you really want to do it (not recommended)? ' answer
+	if [ "$answer" != "do it!" ]; then
+		exit
+	fi
+	echo '------------------------ WARNING ------------------------'
+	echo
+fi
+
 # Checks that the rpmbuild package is installed.
 if ! type 'rpmbuild' > /dev/null; then
 	echo 'You need the rpm development tools to create rpm packages.'
