@@ -8,7 +8,7 @@ archive_name='xmind-linux.zip'
 desktop_model="$PWD/xmind.desktop"
 startsh_model="$PWD/start-xmind.sh"
 spec_file="$PWD/xmind.spec"
-icon_file="$PWD/xmind-logo.png"
+icon_file="$PWD/xmind-256.png"
 
 work_dir="$PWD/work"
 downloaded_dir="$work_dir/xmind"

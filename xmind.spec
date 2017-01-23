@@ -38,9 +38,17 @@ mv "%{downloaded_dir}"/* "%{buildroot}%{install_dir}"
 cp "%{desktop_file}" "%{buildroot}%{apps_dir}"
 chmod +x "%{buildroot}%{install_dir}"/start-xmind.sh
 
-%post
-update-desktop-database
+cp xmind-64.png "%{buildroot}%{install_dir}"
 
 %files
 %{install_dir}
 %{apps_dir}/*
+
+%post
+xdg-mime install --novendor xmind.xml --size 64 xmind-64.png application-xmind
+xdg-icon-resource install --context mimetypes
+update-desktop-database
+
+%postun
+xdg-mime uninstall xmind
+
