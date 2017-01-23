@@ -7,8 +7,12 @@ archive_name='xmind-linux.zip'
 
 desktop_model="$PWD/xmind.desktop"
 startsh_model="$PWD/start-xmind.sh"
+icon256_file="$PWD/xmind-256.png"
+icon64_file="$PWD/xmind-64.png"
+
+mime_spec='xmind.xml'
+mime_spec_file="$PWD/$mime_spec"
 spec_file="$PWD/xmind.spec"
-icon_file="$PWD/xmind-256.png"
 
 work_dir="$PWD/work"
 downloaded_dir="$work_dir/xmind"
@@ -16,7 +20,7 @@ desktop_file="$work_dir/xmind.desktop"
 startsh_file="$downloaded_dir/start-xmind.sh"
 archive_file="$work_dir/$archive_name"
 
-# Checks that rpmbuild is installed
+# Checks that the rpmbuild package is installed.
 if ! type 'rpmbuild' > /dev/null; then
 	echo 'You need the rpm development tools to create rpm packages.'
 	read -n 1 -p 'Do you want to install the rpmdevtools package now? [y/N]' answer
@@ -33,7 +37,7 @@ else
 	echo "rpmbuild detected!"
 fi
 
-# Download the xmind zip archive.
+# Downloads the xmind zip archive.
 download_xmind() {
 	echo 'Downloading xmind for linux. This may take a while...'
 	wget -q --show-progress 'http://dl2.xmind.net/xmind-downloads/xmind-8-update1-linux.zip' -O "$archive_file"
@@ -57,17 +61,17 @@ ask_remove_dir() {
 # If it doesn't exist, creates it.
 manage_dir() {
 	if [ -d "$1" ]; then
-		echo "The $2 directory already exist. It may contain outdated things."
+		echo "The $2 directory already exist and may contain outdated data."
 		ask_remove_dir "$1"
 	fi
 	mkdir -p "$1"
 }
 
-manage_dir "$work_dir"
-manage_dir "$rpm_dir"
+manage_dir "$work_dir" 'work'
+manage_dir "$rpm_dir" 'RPMs'
 cd "$work_dir"
 
-# Download xmind if needed
+# Downloads xmind if needed.
 if [ -e "$archive_name" ]; then
 	echo "Found $archive_name"
 	read -n 1 -p 'Do you want to use this archive instead of downloading a new one? [y/N]' answer
@@ -78,20 +82,20 @@ if [ -e "$archive_name" ]; then
 			;;
 		*)
 			rm "$archive_name"
-			download_discord
+			download_xmind
 	esac
 else
 	download_xmind
 fi
 
-# Extracts the archive
+
 echo 'Extracting the files...'
 if [ ! -d "$downloaded_dir" ]; then
 	mkdir "$downloaded_dir"
 fi
 unzip -q "$archive_name" -d "$downloaded_dir"
 
-# Gets infos
+
 echo 'Analysing the files...'
 arch="$(uname -m)"
 if [ "$arch" = "x86_64" ]; then
@@ -106,27 +110,26 @@ echo "Archive: $archive_name"
 echo "Architecture: $arch"
 echo "Executable: $executable"
 
-# Creates a .desktop file:
+
 echo 'Creating .desktop file...'
-cp "$icon_file" "$downloaded_dir"
+cp "$mime_spec_file" "$downloaded_dir"
+cp "$icon256_file" "$downloaded_dir"
 cp "$desktop_model" "$desktop_file"
 sed "s/@dir/$executable_dir/g" "$startsh_model" > "$startsh_file"
 
-# Fixes XMind.ini:
+
 echo 'Fixing XMind.ini...'
 ini_file="$downloaded_dir/$executable_dir/XMind.ini"
 user_xmind_config="@user.home/.config/xmind/configuration"
 user_xmind_workspace="@user.home/.config/xmind/workspace"
 sed -i "s|./configuration|$user_xmind_config|; s|../workspace|$user_xmind_workspace|" "$ini_file"
 
-# Chooses the spec file based on the system's architecture and build the packages
-echo 'Creating the RPM package...'
+
 rpmbuild -bb --quiet --nocheck "$spec_file" --define "_topdir $work_dir" --define "_rpmdir $rpm_dir"\
-	--define "arch $arch" --define "downloaded_dir $downloaded_dir" --define "desktop_file $desktop_file"
+	--define "arch $arch" --define "downloaded_dir $downloaded_dir" --define "desktop_file $desktop_file"\
+	--define "mime_icon $icon64_file" --define "mime_spec $mime_spec"
 
 echo '-----------'
 echo 'Done!'
 echo "The RPM package is located in the \"RPMs/$arch\" folder."
-
-# Removes the work directory if the user wants to
 ask_remove_dir "$work_dir"

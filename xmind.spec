@@ -2,6 +2,7 @@
 # downloaded_dir
 # desktop_file
 # arch
+# mime_icon
 
 %define install_dir /opt/xmind-8
 %define apps_dir /usr/share/applications
@@ -36,19 +37,18 @@ mkdir -p "%{buildroot}%{install_dir}"
 mkdir -p "%{buildroot}%{apps_dir}"
 mv "%{downloaded_dir}"/* "%{buildroot}%{install_dir}"
 cp "%{desktop_file}" "%{buildroot}%{apps_dir}"
-chmod +x "%{buildroot}%{install_dir}"/start-xmind.sh
-
-cp xmind-64.png "%{buildroot}%{install_dir}"
+chmod +x "%{buildroot}%{install_dir}/start-xmind.sh"
 
 %files
 %{install_dir}
 %{apps_dir}/*
 
 %post
-xdg-mime install --novendor xmind.xml --size 64 xmind-64.png application-xmind
-xdg-icon-resource install --context mimetypes
+xdg-mime install --mode system --novendor "%{install_dir}/xmind.xml"
+xdg-icon-resource install --context mimetypes --size 64 "%{mime_icon}" application-xmind
 update-desktop-database
 
-%postun
-xdg-mime uninstall xmind
+%preun
+xdg-mime uninstall --mode system "%{install_dir}/xmind.xml"
+xdg-icon-resource uninstall --context mimetypes --size 64 application-xmind
 

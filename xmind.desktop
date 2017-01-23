@@ -1,8 +1,8 @@
 [Desktop Entry]
-Version=8
+Version=8.1
 Type=Application
 Name=XMind 8
-Icon=/opt/xmind-8/xmind-logo.png
+Icon=/opt/xmind-8/xmind-256.png
 Exec=/opt/xmind-8/start-xmind.sh
 Comment=Mind Mapping Software
 Categories=Office
