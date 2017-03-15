@@ -1,5 +1,5 @@
 # RPM Package for XMind
-A script to create an RPM package of [VisualVM](https://visualvm.github.io/).
+A script to create an RPM package of XMind.
 
 ## How to use
 1. Run the [create-package.sh](https://github.com/RPM-Outpost/xmind/blob/master/create-package.sh) script from the command line. It will download the latest version of XMind and build an RPM package.
