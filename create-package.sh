@@ -5,6 +5,8 @@
 rpm_dir="$PWD/RPMs"
 archive_name='xmind-linux.zip'
 version_number='8.4'
+download_url='http://dl2.xmind.net/xmind-downloads/xmind-8-update4-linux.zip'
+
 icon_name="xmind-256.png"
 startsh_name="start-xmind.sh"
 
@@ -59,7 +61,7 @@ fi
 # Downloads the xmind zip archive.
 download_xmind() {
 	echo 'Downloading xmind for linux. This may take a while...'
-	wget -q --show-progress 'http://dl2.xmind.net/xmind-downloads/xmind-8-update4-linux.zip' -O "$archive_file"
+	wget -q --show-progress "$download_url" -O "$archive_file"
 }
 
 # Asks the user if they want to remove the specified directory, and removes it if they want to.
