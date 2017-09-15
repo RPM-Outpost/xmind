@@ -35,21 +35,23 @@ Mind Mapping Software
 %install
 mkdir -p "%{buildroot}%{install_dir}"
 mkdir -p "%{buildroot}%{apps_dir}"
-mv "%{downloaded_dir}"/* "%{buildroot}%{install_dir}"
-cp "%{desktop_file}" "%{buildroot}%{apps_dir}"
-chmod +x "%{buildroot}%{install_dir}/start-xmind.sh"
+mv "%{downloaded_dir}"/* "%{buildroot}%{install_dir}" # Install the app
+cp "%{desktop_file}" "%{buildroot}%{apps_dir}" # Install the desktop file
+chmod +x "%{buildroot}%{install_dir}/start-xmind.sh" # Make the launch script executable
 
+# Package the files
 %files
 %{install_dir}
-%{apps_dir}/*
+%{apps_dir}/* # Important! If the '/*' is removed, the apps_dir will be considered as created by XMind,
+              # which is not true and problematic, because removing xmind would delete the folder. 
 
 %post
-xdg-mime install --mode system --novendor "%{install_dir}/xmind.xml"
-xdg-icon-resource install --context mimetypes --size 64 "%{mime_icon}" application-xmind
-xdg-icon-resource install --context mimetypes --size 256 "%{mime_icon_big}" application-xmind
-update-desktop-database
+xdg-mime install --mode system --novendor "%{install_dir}/xmind.xml" # Remove the MIME data
+xdg-icon-resource install --context mimetypes --size 64 "%{mime_icon}" application-xmind # Remove the file icons
+xdg-icon-resource install --context mimetypes --size 256 "%{mime_icon_big}" application-xmind # Remove the HD file icon
+update-desktop-database # Update the MIME database
 
 %preun
-xdg-mime uninstall --mode system "%{install_dir}/xmind.xml"
-xdg-icon-resource uninstall --context mimetypes --size 64 application-xmind
-xdg-icon-resource uninstall --context mimetypes --size 256 application-xmind
+xdg-mime uninstall --mode system "%{install_dir}/xmind.xml" # Remove the MIME data
+xdg-icon-resource uninstall --context mimetypes --size 64 application-xmind # Remove the small file icon
+xdg-icon-resource uninstall --context mimetypes --size 256 application-xmind # Remove the HD file icon
