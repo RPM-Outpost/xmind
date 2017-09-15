@@ -33,7 +33,7 @@ if [ "$(id -u)" = "0" ]; then
 	echo 'Actually, badly written RPM spec files may execute dangerous command in the system directories.'
 	echo 'So it is REALLY safer not to run this script as root.'
 	echo 'If you still want to run this script as root, type "do it!" within 5 seconds (type anything else to exit):'
-	read -t 5 -n 6 -p 'Do you really want to do it (not recommended)? ' answer
+	read -t 5 -n 6 -p '> Do you really want to do it (not recommended)? ' answer
 	if [ "$answer" != "do it!" ]; then
 		exit
 	fi
@@ -44,7 +44,7 @@ fi
 # Checks that the rpmbuild package is installed.
 if ! type 'rpmbuild' > /dev/null; then
 	echo 'You need the rpm development tools to create rpm packages.'
-	read -n 1 -p 'Do you want to install the rpmdevtools package now? [y/N]' answer
+	read -n 1 -p '> Do you want to install the rpmdevtools package now? [y/N]' answer
 	echo
 	case "$answer" in
 		y|Y)
@@ -66,7 +66,7 @@ download_xmind() {
 
 # Asks the user if they want to remove the specified directory, and removes it if they want to.
 ask_remove_dir() {
-	read -n 1 -p "Do you want to remove the \"$1\" directory? [y/N]" answer
+	read -n 1 -p "> Do you want to remove the directory \"$1\"? [y/N]" answer
 	echo
 	case "$answer" in
 		y|Y)
@@ -96,7 +96,7 @@ cd "$work_dir"
 # Downloads xmind if needed.
 if [ -e "$archive_name" ]; then
 	echo "Found the archive \"$archive_name\"."
-	read -n 1 -p 'Do you want to use this archive instead of downloading a new one? [y/N]' answer
+	read -n 1 -p '> Do you want to use this archive instead of downloading a new one? [y/N]' answer
 	echo
 	case "$answer" in
 		y|Y)
@@ -137,9 +137,9 @@ else
 	echo "Your architecture ($arch) is not supported by XMind. Sorry :("
 	exit 2
 fi
-echo "    Archive: $archive_name"
-echo "    Architecture: $arch"
-echo "    Executable: $executable"
+echo " -- Archive: $archive_name"
+echo " -- Architecture: $arch"
+echo " -- Executable: $executable"
 
 
 echo 'Creating .desktop file...'
