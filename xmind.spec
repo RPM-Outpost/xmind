@@ -11,7 +11,7 @@
 %define __jar_repack 0
 
 Name:		xmind
-Version:	8.1
+Version:	%{version_number}
 Release:	0%{?dist}
 Summary:	Free Voice and Text Chat for Gamers.
 
@@ -46,9 +46,10 @@ chmod +x "%{buildroot}%{install_dir}/start-xmind.sh"
 %post
 xdg-mime install --mode system --novendor "%{install_dir}/xmind.xml"
 xdg-icon-resource install --context mimetypes --size 64 "%{mime_icon}" application-xmind
+xdg-icon-resource install --context mimetypes --size 256 "%{mime_icon_big}" application-xmind
 update-desktop-database
 
 %preun
 xdg-mime uninstall --mode system "%{install_dir}/xmind.xml"
 xdg-icon-resource uninstall --context mimetypes --size 64 application-xmind
-
+xdg-icon-resource uninstall --context mimetypes --size 256 application-xmind

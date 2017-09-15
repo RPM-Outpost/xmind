@@ -4,10 +4,13 @@
 
 rpm_dir="$PWD/RPMs"
 archive_name='xmind-linux.zip'
+version_number='8.4'
+icon_name="xmind-256.png"
+startsh_name="start-xmind.sh"
 
 desktop_model="$PWD/xmind.desktop"
-startsh_model="$PWD/start-xmind.sh"
-icon256_file="$PWD/xmind-256.png"
+startsh_model="$PWD/$startsh_name"
+icon256_file="$PWD/$icon_name"
 icon64_file="$PWD/xmind-64.png"
 
 mime_spec='xmind.xml'
@@ -142,6 +145,7 @@ cp "$mime_spec_file" "$downloaded_dir"
 cp "$icon256_file" "$downloaded_dir"
 cp "$desktop_model" "$desktop_file"
 sed "s/@dir/$executable_dir/g" "$startsh_model" > "$startsh_file"
+sed "s/@version/$version_number/; s/@icon/$icon_name/; s/@exe/$startsh_name/" "$desktop_model" > "$desktop_file"
 
 
 echo 'Fixing XMind.ini...'
@@ -154,7 +158,8 @@ sed -i "s|./configuration|$user_xmind_config|; s|../workspace|$user_xmind_worksp
 echo 'Creating the RPM package (this may take a while)...'
 rpmbuild -bb --quiet --nocheck "$spec_file" --define "_topdir $work_dir" --define "_rpmdir $rpm_dir"\
 	--define "arch $arch" --define "downloaded_dir $downloaded_dir" --define "desktop_file $desktop_file"\
-	--define "mime_icon $icon64_file" --define "mime_spec $mime_spec"
+	--define "mime_icon $icon64_file" --define "mime_icon_big $icon256_file" --define "mime_spec $mime_spec"\
+	--define "version_number $version_number"
 
 echo
 echo '------------------------- Done! -------------------------'
