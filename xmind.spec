@@ -45,8 +45,9 @@ cp "%{buildroot}%{install_dir}/fonts"/* "%{buildroot}%{fonts_dir}" # Install the
 # Package the files
 %files
 %{install_dir}
-%{apps_dir}/* # Important! If the '/*' is removed, the apps_dir will be considered as created by XMind,
-              # which is not true and problematic, because removing xmind would delete the folder. 
+%{apps_dir}/* 
+# Important! If the '/*' is removed, the apps_dir will be considered as created by XMind,
+# which is not true and problematic, because removing xmind would delete the folder. 
 %{fonts_dir}
 
 %post
