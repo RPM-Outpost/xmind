@@ -14,7 +14,7 @@
 Name:		xmind
 Version:	%{version_number}
 Release:	0%{?dist}
-Summary:	Free Voice and Text Chat for Gamers.
+Summary:	Powerful mind map editor.
 
 Group:		Applications/Office
 License:	EPL, LGPLv3
