@@ -13,7 +13,7 @@
 
 Name:		xmind
 Version:	%{version_number}
-Release:	0%{?dist}
+Release:	1%{?dist}
 Summary:	Powerful mind map editor.
 
 Group:		Applications/Office
