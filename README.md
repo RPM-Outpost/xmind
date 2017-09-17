@@ -1,34 +1,33 @@
-# RPM Package for XMind
-A script to create an RPM package of XMind.
+![xmind logo](xmind-256.png)
+
+# XMind rpm
+
+Unofficial script to create an RPM package for XMind.
 
 ## How to use
-1. Run the [create-package.sh](https://github.com/RPM-Outpost/xmind/blob/master/create-package.sh) script from the command line. It will download the latest version of XMind and build an RPM package.
-2. Then, install the package with `sudo dnf install <rpm file>`.
+Open a terminal in the project repository and run `./create-package.sh`
 
-## Advantages
+## Features
 This rpm package has a lot of advantages over a manual XMind installation:
 - Much easier removal: Run `sudo dnf remove xmind` and that's it!
-- Automatic MIME configuration: The `.xmind` files open with XMind by default and have a nice high-quality icon.
-- Automatic desktop entry generation: XMind appears in your app list with an appropriate icon and name.
-- Automatic XMind configuration: The xmind fonts are installed and a configuration directory is created per user.
+- Sets XMind as the default application for `.xmind` files.
+- Adds XMind to the applications' list with a nice HD icon
+- Configures XMind properly: The xmind fonts are installed and a configuration directory is created for each user.
+- Tested on Fedora 25 and 26 (may work on other distributions)
+
+## More informations
+
+### How to update
+When a new version of xmind is released:
+
+1. Download the updated script from github.
+2. Run the script to get the updated version.
 
 ### Requirements
-You need to install the `rpmdevtools` package to build RPM packages and use the script.
-Don't worry: the script detects if it isn't installed, and can install it for you.
+The `rpmdevtools` package is required to build RPM packages and use the script. If it not installed the script will offer to install it.
 
-### About root privileges
-Building an RPM package with root privileges is dangerous, because a mistake in SPEC file could result in running nasty commands.
-See http://serverfault.com/questions/10027/why-is-it-bad-to-build-rpms-as-root.
+###Root privileges
+Building an RPM package with root privileges is dangerous, see http://serverfault.com/questions/10027/why-is-it-bad-to-build-rpms-as-root.
 
-### About download speed
-Downloading xmind is really slow, and I can't do much about it. It's a problem with the XMind's download servers, not with my script.
-
-## Update xmind
-When a new version of xmind is released, you can run the `create-package.sh` script again to create an updated package.
-Then install the updated package with `sudo dnf install <rpm file>`.
-
-## Supported distributions
-- Fedora 25
-- Fedora 26
-
-It probably work on other RPM-based distros but I haven't tested it. Let me know if it works for you!
+### Download speed
+Downloading XMind is notoriously slow because of the XMind's servers, not because of my script.
