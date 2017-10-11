@@ -31,7 +31,7 @@ When a new version of xmind is released:
 ### Requirements
 The `rpmdevtools` package is required to build RPM packages and use the script. If it not installed the script will offer to install it.
 
-###Root privileges
+### Root privileges
 Building an RPM package with root privileges is dangerous, see http://serverfault.com/questions/10027/why-is-it-bad-to-build-rpms-as-root.
 
 ### Download speed
