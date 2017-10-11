@@ -17,7 +17,12 @@ This rpm package has a lot of advantages over a manual XMind installation:
 
 ## More informations
 
+### Warning - no accents
+
+The path where you run the script must **not** contain any special character like é, ü, etc. This is a limitation of the rpm tools.
+
 ### How to update
+
 When a new version of xmind is released:
 
 1. Download the updated script from github.
