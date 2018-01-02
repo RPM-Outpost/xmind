@@ -7,6 +7,7 @@
 %define install_dir /opt/xmind-8
 %define apps_dir /usr/share/applications
 %define fonts_dir /usr/share/fonts/truetype/xmind
+%define _build_id_links none
 
 # Disable brp-java-repack-jars which is really slow, and not useful for XMind.
 %define __jar_repack 0
