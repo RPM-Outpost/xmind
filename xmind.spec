@@ -52,9 +52,9 @@ cp "%{buildroot}%{install_dir}/fonts"/* "%{buildroot}%{fonts_dir}" # Install the
 %{fonts_dir}
 
 %post
-xdg-mime install --mode system --novendor "%{install_dir}/xmind.xml" # Remove the MIME data
-xdg-icon-resource install --context mimetypes --size 64 "%{mime_icon}" application-xmind # Remove the file icons
-xdg-icon-resource install --context mimetypes --size 256 "%{mime_icon_big}" application-xmind # Remove the HD file icon
+xdg-mime install --mode system --novendor "%{install_dir}/xmind.xml" # Install the MIME data
+xdg-icon-resource install --context mimetypes --size 64 "%{mime_icon}" application-xmind # Install the file icons
+xdg-icon-resource install --context mimetypes --size 256 "%{mime_icon_big}" application-xmind # Install the HD file icon
 update-desktop-database # Update the MIME database
 fc-cache -f # Update the font cache
 

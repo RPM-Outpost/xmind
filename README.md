@@ -13,7 +13,7 @@ This rpm package has a lot of advantages over a manual XMind installation:
 - Sets XMind as the default application for `.xmind` files.
 - Adds XMind to the applications' list with a nice HD icon
 - Configures XMind properly: The xmind fonts are installed and a configuration directory is created for each user.
-- Tested on Fedora 25 and 26 (may work on other distributions)
+- Tested on Fedora 31 (may work on other distributions)
 
 ## More informations
 
